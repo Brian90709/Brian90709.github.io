@@ -1,37 +1,44 @@
 # Zheng-Hui Huang — Academic Personal Website
 
-A plain static site (HTML/CSS/JS, no build step). Open `index.html` in a browser to preview.
+A static site. Content lives in `js/data.js` and is **pre-rendered into static HTML**
+by `build.js` (so search engines index it without running JS). Open `index.html` to preview.
 
 ## File structure
 
 ```
 hzh-page/
-├── index.html          # page structure (sections, nav, hero)
+├── index.html          # the page — publications/news are baked in as static HTML
+├── build.js            # data.js → static HTML in index.html  (run after editing data.js)
 ├── css/style.css       # all styling + light/dark theme
 ├── js/
-│   ├── data.js         # ← EDIT THIS to update content (pubs, news, exp, edu)
-│   └── main.js         # rendering + interactions (rarely needs edits)
-├── assets/
-│   ├── cv.pdf          # your CV (replace to update)
-│   ├── profile.svg     # placeholder portrait — replace with profile.jpg
-│   └── favicon.svg
+│   ├── data.js         # ← EDIT THIS: publications, news, author links
+│   └── main.js         # light enhancement only (theme, scroll-spy, hover video)
+├── paper/              # demo media (videos / input-output images) per paper
+├── photo.png           # hero portrait
+├── sitemap.xml, robots.txt   # SEO
 ├── .nojekyll           # tells GitHub Pages to serve files as-is
 └── README.md
 ```
 
 ## How to update content
 
-Almost everything lives in **`js/data.js`**:
+1. Edit **`js/data.js`** (publications, news, `authorLinks`, `me`).
+2. Run the build to regenerate the static HTML:
+   ```bash
+   node build.js
+   ```
+3. Commit `index.html` (and any new files under `paper/`), then push.
 
-- **Add a publication** → add an object to the `publications` array. Your name is
-  auto-bolded; add `*` for equal contribution. Add links like
-  `links: [{ label: "PDF", href: "..." }, { label: "Code", href: "..." }]`.
-  Add a teaser image with `image: "assets/pub/your-image.jpg"`.
-- **Post news** → add an item to the `news` array (newest first).
-- **Experience / Education** → edit those arrays.
-- **Your name highlight** → the `me` field controls which name gets bolded.
+In `data.js`: your name is auto-bolded; add `*` for equal contribution; add links like
+`links: [{ label: "PDF", href: "..." }]`; add a demo with
+`media: { type: "video", src: "paper/.../clip.mp4" }` or
+`media: { type: "compare", input: "...", output: "..." }`.
 
-To change links in the header (Scholar, GitHub), edit `index.html` (`#social-links`).
+To change the header links (Email, GitHub, LinkedIn) or the intro, edit `index.html` directly.
+
+> **Why the build step?** Search engines index the *served* HTML most reliably. Rendering
+> content with client-side JS hides paper titles from the initial crawl, so `build.js`
+> pre-renders everything into `index.html`.
 
 ## Replace the photo
 
