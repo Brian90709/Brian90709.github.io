@@ -13,6 +13,19 @@ const SITE = {
   //  shown at the top is the <h1> in index.html.)
   me: "Zheng-Hui Huang",
 
+  // Co-author names that should link to their homepage wherever they appear
+  // in a publication's author list (matched automatically).
+  authorLinks: {
+    "Yung-Yu Chuang": "https://www.csie.ntu.edu.tw/~cyy/",
+    "Yu-Lun Liu": "https://yulunalexliu.github.io",
+    "Zhixiang Wang": "https://lightchaserx.github.io",
+    "Kaipeng Zhang": "https://kpzhang93.github.io",
+    "Chih-Hao Lin": "https://chih-hao-lin.github.io",
+    "Yi-Ruei Liu": "https://shigon255.github.io",
+    "Jie-Ying Lee": "https://jayinnn.dev",
+    "Ruihan Yu": "https://auroraryan0301.github.io",
+  },
+
   /* ----------------------------- News ----------------------------------- */
   // Newest first. `date` is free text (shown verbatim).
   news: [
@@ -32,13 +45,17 @@ const SITE = {
   //   status   — optional, e.g. "under review", "preprint"
   //   tags      — optional venue badge text (defaults to venue)
   //   links    — optional array of { label, href }
-  //   image    — optional teaser image path (e.g. "assets/pub/reflection.jpg")
+  //   media    — optional demo thumbnail shown before the paper:
+  //                { type: "video",   src: "paper/.../clip.mp4" }            (plays on hover)
+  //                { type: "compare", input: "...", output: "..." }          (input → output on hover)
+  //                { type: "compare", pairs: [{input,output}, ...] }         (several side by side)
   publications: [
     {
       title: "Generative World Renderer",
       authors: "Zheng-Hui Huang, Zhixiang Wang, Jiaming Tan, Ruihan Yu, Yidan Zhang, Bo Zheng, Yu-Lun Liu, Yung-Yu Chuang, Kaipeng Zhang",
       venue: "arXiv",
       year: 2026,
+      media: { type: "video", src: "paper/arxiv26_world_renderer/Huang2026GWR.mp4" },
       links: [
         { label: "Project", href: "https://alaya-studio.github.io/renderer/" },
         { label: "arXiv", href: "https://arxiv.org/abs/2604.02329" },
@@ -52,6 +69,7 @@ const SITE = {
       authors: "Zheng-Hui Huang, Zhixiang Wang, Yu-Lun Liu, Yung-Yu Chuang",
       venue: "CVPR",
       year: 2026,
+      media: { type: "compare", input: "paper/cvpr2026_reflection/input.png", output: "paper/cvpr2026_reflection/output.png" },
       links: [
         { label: "Project", href: "https://brian90709.github.io/diff-reflection-separation/" },
         { label: "Paper", href: "https://cvpr.thecvf.com/virtual/2026/poster/39860" },
@@ -64,8 +82,21 @@ const SITE = {
       authors: "Cheng-Yen Tsai*, Zheng-Hui Huang*, Wei-Lien Tang, Hsiu-Ting Yang, Jo-Fan Wu, Yung-Yu Chuang",
       venue: "ICASSP",
       year: 2026,
+      media: { type: "compare", input: "paper/ICASSP2026/input.jpg", output: "paper/ICASSP2026/output.png" },
       links: [
         { label: "Paper", href: "https://ieeexplore.ieee.org/document/11461801" },
+      ],
+    },
+    {
+      title: "BRDFusion: Physics Meets Generation for Urban Scene Inverse Rendering",
+      authors: "Yi-Ruei Liu, Jie-Ying Lee, Zheng-Hui Huang, Yu-Lun Liu, Chih-Hao Lin",
+      venue: "arXiv",
+      year: 2026,
+      media: { type: "video", src: "paper/arxiv26_brdfusion/brdfusion.mp4" },
+      links: [
+        { label: "Project", href: "https://shigon255.github.io/brdfusion-page/" },
+        { label: "arXiv", href: "https://arxiv.org/abs/2606.17049" },
+        { label: "Code", href: "https://github.com/shigon255/BRDFusion" },
       ],
     },
     {
@@ -73,6 +104,10 @@ const SITE = {
       authors: "Zheng-Hui Huang, Tse-Yan Lee, Li-Jen Chang, Yong-Wei Chen, Ping-Jui Chiang, Jo-Fan Wu, Yung-Yu Chuang",
       venue: "ICIP",
       year: 2024,
+      media: { type: "compare", pairs: [
+        { input: "paper/ICIP2024/input1.jpg", output: "paper/ICIP2024/output1.jpg" },
+        { input: "paper/ICIP2024/input.jpg", output: "paper/ICIP2024/output2.jpg" },
+      ] },
       links: [
         { label: "Paper", href: "https://ieeexplore.ieee.org/document/10647940" },
       ],

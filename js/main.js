@@ -40,13 +40,30 @@
     return '<svg class="pub__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="' + ICONS[key] + '"/></svg>';
   }
 
-  // Bold the author's own name, and wrap "*" equal-contribution marks.
-  function formatAuthors(authors, me) {
+  function escapeRegExp(str) {
+    return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  }
+
+  // Bold the author's own name and linkify known co-authors.
+  // The trailing "(\*?)" keeps any equal-contribution mark next to the name.
+  function formatAuthors(authors, me, links) {
     let s = authors;
     if (me) {
-      // Match "me", optionally followed by a * (equal contribution).
-      const re = new RegExp(me.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "(\\*?)", "g");
-      s = s.replace(re, (_m, star) => `<strong class="me">${me}${star}</strong>`);
+      const reMe = new RegExp(escapeRegExp(me) + "(\\*?)", "g");
+      s = s.replace(reMe, (_m, star) => `<strong class="me">${me}${star}</strong>`);
+    }
+    if (links) {
+      Object.keys(links)
+        .sort((a, b) => b.length - a.length) // longest first, avoids partial overlaps
+        .forEach((name) => {
+          if (name === me) return;
+          const re = new RegExp(escapeRegExp(name) + "(\\*?)", "g");
+          s = s.replace(
+            re,
+            (_m, star) =>
+              `<a href="${links[name]}" target="_blank" rel="noopener">${name}</a>${star}`
+          );
+        });
     }
     return s;
   }
@@ -67,6 +84,42 @@
     });
   }
 
+  /* ----- demo thumbnail: hover-to-play video, or input→output compare --- */
+  function buildThumb(media, title) {
+    const thumb = el("div", "pub__thumb");
+
+    if (media.type === "video") {
+      thumb.classList.add("pub__thumb--video");
+      const v = document.createElement("video");
+      // "#t=0.001" makes browsers render the first frame as the default poster.
+      v.src = media.src + "#t=0.001";
+      v.muted = true;
+      v.loop = true;
+      v.playsInline = true;
+      v.preload = "metadata";
+      v.setAttribute("muted", "");
+      v.setAttribute("playsinline", "");
+      thumb.appendChild(v);
+      thumb.addEventListener("mouseenter", () => { v.play().catch(() => {}); });
+      thumb.addEventListener("mouseleave", () => { v.pause(); v.currentTime = 0; });
+    } else if (media.type === "compare") {
+      thumb.classList.add("pub__thumb--compare");
+      const pairs = media.pairs || [{ input: media.input, output: media.output }];
+      if (pairs.length > 1) thumb.classList.add("pub__thumb--grid");
+      pairs.forEach((pr) => {
+        const cell = pairs.length > 1 ? el("div", "pub__cell") : thumb;
+        const inImg = el("img", "pub__img-in");
+        inImg.src = pr.input; inImg.alt = title + " — input"; inImg.loading = "lazy";
+        const outImg = el("img", "pub__img-out");
+        outImg.src = pr.output; outImg.alt = title + " — output"; outImg.loading = "lazy";
+        cell.appendChild(inImg);
+        cell.appendChild(outImg);
+        if (cell !== thumb) thumb.appendChild(cell);
+      });
+    }
+    return thumb;
+  }
+
   /* ----------------------- Publications -------------------------------- */
   function renderPublications(pubs, me) {
     const list = $("#pub-list");
@@ -75,8 +128,10 @@
     pubs.forEach((p) => {
       const li = el("li", "pub");
 
-      // Optional teaser image.
-      if (p.image) {
+      // Optional demo thumbnail (video plays on hover; image reveals output on hover).
+      if (p.media) {
+        li.appendChild(buildThumb(p.media, p.title));
+      } else if (p.image) {
         const fig = el("div", "pub__thumb");
         const img = el("img");
         img.src = p.image;
@@ -89,7 +144,7 @@
       const body = el("div", "pub__body");
 
       body.appendChild(el("h3", "pub__title", p.title));
-      body.appendChild(el("p", "pub__authors", formatAuthors(p.authors, me)));
+      body.appendChild(el("p", "pub__authors", formatAuthors(p.authors, me, SITE.authorLinks)));
 
       const meta = el("p", "pub__meta");
       const badge = el("span", "badge", `${p.tags || p.venue} ${p.year}`);
