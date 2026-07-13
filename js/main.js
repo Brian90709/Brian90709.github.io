@@ -55,7 +55,7 @@
           if (!d || typeof d.stargazers_count !== "number") return;
           const s = document.createElement("span");
           s.className = "pub__stars";
-          s.textContent = "★ " + fmtCount(d.stargazers_count);
+          s.innerHTML = '<span class="pub__star">★</span> ' + fmtCount(d.stargazers_count);
           a.appendChild(s);
         })
         .catch(() => {});
