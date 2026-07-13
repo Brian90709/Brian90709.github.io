@@ -98,7 +98,12 @@ function pubHTML(p, me, links) {
       p.links
         .map((lk) => {
           const ext = lk.href && lk.href.startsWith("http") ? ' target="_blank" rel="noopener"' : "";
-          return `<a class="pub__link" href="${lk.href}"${ext}>${iconFor(lk)}<span>${lk.label}</span></a>`;
+          let stars = "";
+          if (lk.stars) {
+            const m = (lk.href || "").match(/github\.com\/([^/]+\/[^/?#]+)/);
+            if (m) stars = ` data-gh-stars="${m[1]}"`;
+          }
+          return `<a class="pub__link" href="${lk.href}"${ext}${stars}>${iconFor(lk)}<span>${lk.label}</span></a>`;
         })
         .join("") +
       "</p>";

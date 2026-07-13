@@ -42,6 +42,26 @@
     });
   }
 
+  /* -------------- Live GitHub star counts (data-gh-stars) -------------- */
+  function fmtCount(n) {
+    return n >= 1000 ? (n / 1000).toFixed(n >= 10000 ? 0 : 1).replace(/\.0$/, "") + "k" : String(n);
+  }
+  function initGhStars() {
+    document.querySelectorAll("a[data-gh-stars]").forEach((a) => {
+      const repo = a.getAttribute("data-gh-stars");
+      fetch("https://api.github.com/repos/" + repo)
+        .then((r) => (r.ok ? r.json() : null))
+        .then((d) => {
+          if (!d || typeof d.stargazers_count !== "number") return;
+          const s = document.createElement("span");
+          s.className = "pub__stars";
+          s.textContent = "★ " + fmtCount(d.stargazers_count);
+          a.appendChild(s);
+        })
+        .catch(() => {});
+    });
+  }
+
   /* ------------------ Active nav link on scroll ------------------------ */
   function initScrollSpy() {
     const links = Array.from(document.querySelectorAll(".nav__links a"));
@@ -72,6 +92,7 @@
   document.addEventListener("DOMContentLoaded", () => {
     initTheme();
     initVideoHover();
+    initGhStars();
     initScrollSpy();
     const yr = $("#year");
     if (yr && !yr.textContent.trim()) yr.textContent = new Date().getFullYear();

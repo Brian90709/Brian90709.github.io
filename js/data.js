@@ -44,7 +44,8 @@ const SITE = {
   //   year     — used for grouping/badges
   //   status   — optional, e.g. "under review", "preprint"
   //   tags      — optional venue badge text (defaults to venue)
-  //   links    — optional array of { label, href }
+  //   links    — optional array of { label, href, stars? }
+  //                stars:true on a github.com/owner/repo link shows its live ★ count
   //   media    — optional demo thumbnail shown before the paper:
   //                { type: "video",   src: "paper/.../clip.mp4" }            (plays on hover)
   //                { type: "compare", input: "...", output: "..." }          (input → output on hover)
@@ -59,7 +60,7 @@ const SITE = {
       links: [
         { label: "Project", href: "https://alaya-studio.github.io/renderer/" },
         { label: "arXiv", href: "https://arxiv.org/abs/2604.02329" },
-        { label: "Code", href: "https://github.com/ShandaAI/AlayaRenderer" },
+        { label: "Code", href: "https://github.com/AlayaLab/AlayaRenderer", stars: true },
         { label: "Demo", href: "https://huggingface.co/spaces/Brian9999/game-editing" },
         { label: "Video", href: "https://youtu.be/N5CQ5WWIA_8" },
       ],
