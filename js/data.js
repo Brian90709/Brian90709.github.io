@@ -84,6 +84,7 @@ const SITE = {
       year: 2026,
       media: { type: "compare", input: "paper/ICASSP2026/input.jpg", output: "paper/ICASSP2026/output.png" },
       links: [
+        { label: "Project", href: "https://www.csie.ntu.edu.tw/~cyy/skymatte/" },
         { label: "Paper", href: "https://ieeexplore.ieee.org/document/11461801" },
       ],
     },
