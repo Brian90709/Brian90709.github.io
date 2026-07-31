@@ -66,6 +66,19 @@ const SITE = {
       ],
     },
     {
+      title: "Generative World Renderer at the Speed of Play",
+      authors: "Guixu Lin, Zheng-Hui Huang, Siqi Yang, Ming-Hsuan Yang, Kaipeng Zhang, Zhixiang Wang†",
+      venue: "arXiv",
+      year: 2026,
+      media: { type: "video", src: "paper/arxiv26_renderer_flash/Lin2026ARF.mp4" },
+      links: [
+        { label: "Project", href: "https://alaya-renderer-flash.alayalab.ai/" },
+        { label: "arXiv", href: "https://arxiv.org/abs/2607.18703" },
+        { label: "Code", href: "https://github.com/AlayaLab/AlayaRenderer-Flash", stars: true },
+        { label: "Demo", href: "https://alaya-renderer-flash.alayalab.ai/play" },
+      ],
+    },
+    {
       title: "Reflection Separation from a Single Image via Joint Latent Diffusion",
       authors: "Zheng-Hui Huang, Zhixiang Wang, Yu-Lun Liu, Yung-Yu Chuang",
       venue: "CVPR",
