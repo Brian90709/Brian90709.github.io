@@ -69,7 +69,7 @@ const SITE = {
     },
     {
       title: "Generative World Renderer at the Speed of Play",
-      authors: "Guixu Lin, Zheng-Hui Huang, Siqi Yang, Ming-Hsuan Yang, Kaipeng Zhang, Zhixiang Wang†",
+      authors: "Guixu Lin, Zheng-Hui Huang, Siqi Yang, Ming-Hsuan Yang, Kaipeng Zhang, Zhixiang Wang",
       venue: "arXiv",
       year: 2026,
       media: { type: "video", src: "paper/arxiv26_renderer_flash/Lin2026ARF.mp4" },
