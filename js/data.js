@@ -25,6 +25,7 @@ const SITE = {
     "Jie-Ying Lee": "https://jayinnn.dev",
     "Ruihan Yu": "https://auroraryan0301.github.io",
     "Ming-Hsuan Yang": "https://faculty.ucmerced.edu/mhyang/",
+    "Guixu Lin": "https://joseph-lin-tech.github.io/",
   },
 
   /* ----------------------------- News ----------------------------------- */
