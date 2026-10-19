@@ -1,9 +1,10 @@
 /* =============================================================================
  *  style.css — academic personal site
- *  Theming via CSS custom properties; [data-theme="dark"] overrides below.
+ *  Shared colors and typography are defined with CSS custom properties.
  * ========================================================================== */
 
 :root {
+  color-scheme: light;
   --max-width: 880px;
   --accent: #b5742a;
   --accent-soft: #f3e6d4;
@@ -24,27 +25,10 @@
   --font-serif: "Newsreader", Georgia, "Times New Roman", "Songti SC", "Noto Serif CJK SC", "Source Han Serif SC", "STSong", serif;
 }
 
-[data-theme="dark"] {
-  --accent: #d9a15b;
-  --accent-soft: #2e2418;
-
-  --bg: #16130f;
-  --bg-soft: #1d1913;
-  --surface: #1f1a14;
-  --border: #322b22;
-  --text: #ece7df;
-  --text-soft: #b3a99b;
-  --text-muted: #847b6d;
-
-  --badge-bg: #2c2317;
-  --badge-text: #d9a15b;
-  --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 6px 20px rgba(0, 0, 0, 0.35);
-}
-
 /* --------------------------- base --------------------------------------- */
 * { box-sizing: border-box; }
 
-html { scroll-behavior: smooth; scroll-padding-top: 64px; }
+html { scroll-behavior: smooth; scroll-padding-top: 24px; }
 
 body {
   margin: 0;
@@ -55,7 +39,6 @@ body {
   background: var(--bg);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  transition: background-color 0.25s ease, color 0.25s ease;
 }
 
 a { color: var(--accent); text-decoration: none; }
@@ -64,61 +47,6 @@ a:hover { text-decoration: underline; text-underline-offset: 2px; }
 strong { font-weight: 600; }
 
 ::selection { background: var(--accent-soft); color: var(--text); }
-
-/* --------------------------- nav ---------------------------------------- */
-.nav {
-  position: sticky;
-  top: 0;
-  z-index: 50;
-  background: color-mix(in srgb, var(--bg) 85%, transparent);
-  backdrop-filter: saturate(180%) blur(10px);
-  border-bottom: 1px solid var(--border);
-}
-.nav__inner {
-  max-width: var(--max-width);
-  margin: 0 auto;
-  padding: 0 24px;
-  height: 50px;
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-.nav__brand {
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  color: var(--text);
-  font-size: 1.05rem;
-}
-.nav__links {
-  display: flex;
-  gap: 22px;
-  margin-left: auto;
-}
-.nav__links a {
-  color: var(--text-soft);
-  font-size: 0.93rem;
-  font-weight: 500;
-  padding: 4px 0;
-  border-bottom: 2px solid transparent;
-  transition: color 0.15s ease, border-color 0.15s ease;
-}
-.nav__links a:hover { color: var(--text); text-decoration: none; }
-.nav__links a.active { color: var(--accent); border-bottom-color: var(--accent); }
-
-.theme-toggle {
-  display: grid;
-  place-items: center;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  border: 1px solid var(--border);
-  background: var(--surface);
-  color: var(--text-soft);
-  cursor: pointer;
-  font-size: 1.1rem;
-  transition: background 0.15s ease, color 0.15s ease, transform 0.15s ease;
-}
-.theme-toggle:hover { color: var(--accent); transform: rotate(-15deg); }
 
 /* --------------------------- hero --------------------------------------- */
 main { max-width: var(--max-width); margin: 0 auto; padding: 0 24px; }
@@ -212,26 +140,6 @@ main { max-width: var(--max-width); margin: 0 auto; padding: 0 24px; }
 }
 .section__note { color: var(--text-muted); font-size: 0.82rem; margin: -8px 0 6px; }
 
-/* --------------------------- news --------------------------------------- */
-.news { list-style: none; margin: 0; padding: 0; }
-.news__item {
-  display: flex;
-  gap: 16px;
-  padding: 5px 0;
-  border-bottom: 1px dashed var(--border);
-  font-size: 0.92rem;
-}
-.news__item:last-child { border-bottom: none; }
-.news__date {
-  flex: 0 0 92px;
-  color: var(--text-muted);
-  font-variant-numeric: tabular-nums;
-  font-size: 0.88rem;
-  padding-top: 1px;
-}
-.news__body { color: var(--text-soft); }
-.news__body strong { color: var(--text); }
-
 /* --------------------------- publications ------------------------------- */
 .pub-list { list-style: none; margin: 0; padding: 0; counter-reset: pub; }
 .pub {
@@ -259,6 +167,10 @@ main { max-width: var(--max-width); margin: 0 auto; padding: 0 24px; }
   height: 100%;
   object-fit: cover;
 }
+
+/* Keep the full frame visible in video previews in both publication lists. */
+.pub__thumb--video { aspect-ratio: 16 / 9; }
+.pub__thumb--video video { object-fit: contain; }
 
 /* image compare: output fades in on hover */
 .pub__thumb--compare .pub__img-out {
@@ -356,7 +268,6 @@ main { max-width: var(--max-width); margin: 0 auto; padding: 0 24px; }
 
 /* --------------------------- responsive --------------------------------- */
 @media (max-width: 640px) {
-  .nav__links { display: none; }
   .hero {
     flex-direction: column;
     text-align: center;

@@ -2,13 +2,13 @@
  *  build.js — bakes the content from js/data.js into static HTML in index.html.
  *
  *  WHY: search engines (and social/LLM crawlers) index the *served* HTML most
- *  reliably. Rendering publications/news with client-side JS hides that content
+ *  reliably. Rendering publications with client-side JS hides that content
  *  from the initial crawl. This script pre-renders it into index.html so the
  *  paper titles, names, and links are right there in the source.
  *
  *  USAGE: after editing js/data.js, run:   node build.js
- *  Then commit index.html.  (main.js only adds light enhancement: theme,
- *  scroll-spy, hover-to-play video.)
+ *  Then commit index.html.  (main.js only adds light enhancement:
+ *  GitHub star counts, hover-to-play video.)
  * ========================================================================== */
 
 const fs = require("fs");
@@ -17,6 +17,7 @@ const path = require("path");
 const ROOT = __dirname;
 const dataSrc = fs.readFileSync(path.join(ROOT, "js/data.js"), "utf8").replace("const SITE =", "global.SITE =");
 eval(dataSrc);
+const starSnapshot = JSON.parse(fs.readFileSync(path.join(ROOT, "js/github-stars.json"), "utf8"));
 
 /* ----- icons for publication links (matched by label / url) ------------- */
 const ICONS = {
@@ -68,9 +69,10 @@ function formatAuthors(authors, me, links) {
 function thumbHTML(media, title) {
   if (!media) return "";
   if (media.type === "video") {
+    const start = media.startTime ? ` data-preview-start="${media.startTime}"` : "";
     return (
       '<div class="pub__thumb pub__thumb--video">' +
-      `<video src="${media.src}#t=0.001" muted loop playsinline preload="metadata"></video>` +
+      `<video src="${media.src}#t=${media.startTime || 0.001}"${start} muted loop playsinline preload="metadata"></video>` +
       "</div>"
     );
   }
@@ -99,11 +101,19 @@ function pubHTML(p, me, links) {
         .map((lk) => {
           const ext = lk.href && lk.href.startsWith("http") ? ' target="_blank" rel="noopener"' : "";
           let stars = "";
+          let starBadge = "";
           if (lk.stars) {
             const m = (lk.href || "").match(/github\.com\/([^/]+\/[^/?#]+)/);
-            if (m) stars = ` data-gh-stars="${m[1]}"`;
+            if (m) {
+              stars = ` data-gh-stars="${m[1]}"`;
+              const count = starSnapshot.repositories[m[1]];
+              if (Number.isInteger(count) && count >= 0) {
+                stars += ` data-gh-stars-count="${count}" data-gh-stars-updated="${starSnapshot.updatedAt}"`;
+                starBadge = `<span class="pub__stars"><span class="pub__star">★</span> ${count}</span>`;
+              }
+            }
           }
-          return `<a class="pub__link" href="${lk.href}"${ext}${stars}>${iconFor(lk)}<span>${lk.label}</span></a>`;
+          return `<a class="pub__link" href="${lk.href}"${ext}${stars}>${iconFor(lk)}<span>${lk.label}</span>${starBadge}</a>`;
         })
         .join("") +
       "</p>";
@@ -120,19 +130,19 @@ function pubHTML(p, me, links) {
   );
 }
 
-function newsHTML(n) {
-  return `        <li class="news__item"><span class="news__date">${n.date || ""}</span><span class="news__body">${n.html || ""}</span></li>`;
-}
-
 /* ----- generate + inject ------------------------------------------------ */
-const news = (SITE.news || []).map(newsHTML).join("\n");
-const pubs = (SITE.publications || []).map((p) => pubHTML(p, SITE.me, SITE.authorLinks)).join("\n");
+const allPublications = [...(SITE.publications || [])].sort((a, b) =>
+  (b.publicationDate || String(b.year)).localeCompare(a.publicationDate || String(a.year))
+);
+const pubs = allPublications.map((p) => pubHTML(p, SITE.me, SITE.authorLinks)).join("\n");
+const selectedPublications = (SITE.publications || []).filter((p) => p.selected);
+const selectedPubs = selectedPublications.map((p) => pubHTML(p, SITE.me, SITE.authorLinks)).join("\n");
 const year = new Date().getFullYear();
 
 let html = fs.readFileSync(path.join(ROOT, "index.html"), "utf8");
-html = html.replace(/(<ul class="news" id="news-list">)[\s\S]*?(<\/ul>)/, `$1\n${news}\n      $2`);
+html = html.replace(/(<ol class="pub-list" id="selected-pub-list">)[\s\S]*?(<\/ol>)/, `$1\n${selectedPubs}\n      $2`);
 html = html.replace(/(<ol class="pub-list" id="pub-list">)[\s\S]*?(<\/ol>)/, `$1\n${pubs}\n      $2`);
 html = html.replace(/(<span id="year">)[\s\S]*?(<\/span>)/, `$1${year}$2`);
 fs.writeFileSync(path.join(ROOT, "index.html"), html);
 
-console.log(`Built index.html: ${SITE.news.length} news, ${SITE.publications.length} publications, year ${year}.`);
+console.log(`Built index.html: ${selectedPublications.length} selected publications, ${SITE.publications.length} total publications, year ${year}.`);

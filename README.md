@@ -7,12 +7,13 @@ by `build.js` (so search engines index it without running JS). Open `index.html`
 
 ```
 hzh-page/
-├── index.html          # the page — publications/news are baked in as static HTML
+├── index.html          # the page — publications are baked in as static HTML
 ├── build.js            # data.js → static HTML in index.html  (run after editing data.js)
-├── css/style.css       # all styling + light/dark theme
+├── css/style.css       # all styling
 ├── js/
-│   ├── data.js         # ← EDIT THIS: publications, news, author links
-│   └── main.js         # light enhancement only (theme, scroll-spy, hover video)
+│   ├── data.js         # ← EDIT THIS: publications, author links
+│   ├── github-stars.json # verified Star counts used when GitHub is unavailable
+│   └── main.js         # light enhancement only (GitHub stars, hover video)
 ├── paper/              # demo media (videos / input-output images) per paper
 ├── photo.png           # hero portrait
 ├── sitemap.xml, robots.txt   # SEO
@@ -22,7 +23,7 @@ hzh-page/
 
 ## How to update content
 
-1. Edit **`js/data.js`** (publications, news, `authorLinks`, `me`).
+1. Edit **`js/data.js`** (publications, `authorLinks`, `me`).
 2. Run the build to regenerate the static HTML:
    ```bash
    node build.js
@@ -33,6 +34,22 @@ In `data.js`: your name is auto-bolded; add `*` for equal contribution; add link
 `links: [{ label: "PDF", href: "..." }]`; add a demo with
 `media: { type: "video", src: "paper/.../clip.mp4" }` or
 `media: { type: "compare", input: "...", output: "..." }`.
+
+Set `selected: true` on a publication to also show it in **Selected Publications**
+above the complete list. Selected papers follow their order in the `publications`
+array and reuse the same authors, links, and media as **All Publications**.
+The five selected papers' `preview.mp4` clips come from https://lightchaserx.github.io/.
+
+GitHub links with `stars: true` show Star counts in both lists. `js/github-stars.json`
+contains the last verified counts and their UTC update time; `build.js` includes
+them in the HTML so they remain visible if the API is unavailable or rate limited.
+The browser refreshes counts from GitHub and caches successful responses for one
+hour. Update the snapshot and run the build when refreshing the static fallback.
+
+**All Publications** is sorted newest first by `publicationDate` (`YYYY-MM-DD`,
+or `YYYY-MM` when only the month is known), independently of the selected order.
+Use the first arXiv submission date when available, otherwise the proceedings
+publication date. Entries with the same date retain their source order.
 
 To change the header links (Email, GitHub, LinkedIn) or the intro, edit `index.html` directly.
 

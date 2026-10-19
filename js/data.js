@@ -3,7 +3,6 @@
  *  This is the only file you normally need to touch to keep things current.
  *
  *  - Add a publication?  Add an object to the `publications` array.
- *  - Post an update?     Add an item to the `news` array.
  *  - "me" highlights your own name in author lists (bold).
  * ========================================================================== */
 
@@ -26,39 +25,132 @@ const SITE = {
     "Ruihan Yu": "https://auroraryan0301.github.io",
     "Ming-Hsuan Yang": "https://faculty.ucmerced.edu/mhyang/",
     "Guixu Lin": "https://joseph-lin-tech.github.io/",
+    "Siqi Yang": "https://siki.moe/",
+    "Yi-Chuan Huang": "https://yichuanh.github.io/",
+    "Jiaming Tan": "https://scholar.google.com/citations?user=7UrSQFQAAAAJ&hl=en",
+    "Bo Zheng": "http://www.bozheng-lab.com/",
+    "Jian-Kai Zhu": "https://jack111331.github.io/BlogPage/",
+    "Lian Fu": "https://scholar.google.com/citations?user=CbWYuIEAAAAJ",
+    "Muyao Niu": "https://myniuuu.github.io/",
+    "Yu-Ju Tsai": "https://liagm.github.io/",
+    "Sho Kuno": "https://shokuno5.github.io/",
+    "Fengbo Lan": "https://openreview.net/profile?id=%7EFengbo_Lan1",
+    "Yonghao Yu": "https://scholar.google.com/citations?user=lwuwuAYAAAAJ",
+    "Erwin Wu": "https://erwinwu.com/",
+    "Runyi Li": "https://lirunyi2001.github.io/",
+    "Hanqing Liu": "https://openreview.net/profile?id=%7ELiu_Hanqing3",
+    "Jixuan He": "https://kakituken.github.io/home",
+    "Yifan Zhan": "https://yifever20002.github.io/",
+    "Yongtao Ge": "https://yongtao.me/",
+    "Yinqiang Zheng": "https://scholar.google.com/citations?user=JD-5DKcAAAAJ",
   },
 
-  /* ----------------------------- News ----------------------------------- */
-  // Newest first. `date` is free text (shown verbatim).
-  news: [
-    { date: "Feb 2026",  html: "<em>Reflection Separation from a Single Image via Joint Latent Diffusion</em> accepted to <strong>CVPR 2026</strong>." },
-    { date: "Dec 2025",  html: "<em>SkyMatte: a High-Quality Dataset for Improving Sky Image Matting</em> accepted to <strong>ICASSP 2026</strong>." },
-    { date: "Dec 2025",  html: "Joined <strong>Shanda AI Research Tokyo</strong> as a research intern." },
-    { date: "Aug 2025",  html: "Joined <strong>Shanghai AI Laboratory</strong> as a research intern." },
-    { date: "Jun 2024",  html: "<em>Semantic-Region Specific Lookup Tables for Image Enhancement via Unpaired Learning</em> accepted to <strong>ICIP 2024</strong>." },
-  ],
-
   /* ------------------------- Publications -------------------------------- */
-  // Newest first. Fields:
+  // All Publications is sorted by publicationDate; source order controls Selected Publications.
+  // Dates use the first arXiv submission where available, otherwise the proceedings date.
+  // Fields:
   //   title    — paper title
+  //   selected — include in Selected Publications, in the same order as this array
   //   authors  — full author string (your name is auto-bolded; use * for equal contrib)
   //   venue    — conference / journal
   //   year     — used for grouping/badges
+  //   publicationDate — YYYY-MM-DD, or YYYY-MM when only the month is known
   //   status   — optional, e.g. "under review", "preprint"
   //   tags      — optional venue badge text (defaults to venue)
   //   links    — optional array of { label, href, stars? }
   //                stars:true on a github.com/owner/repo link shows its live ★ count
   //   media    — optional demo thumbnail shown before the paper:
   //                { type: "video",   src: "paper/.../clip.mp4" }            (plays on hover)
+  //                Add startTime (seconds) to skip an opening title in the preview.
   //                { type: "compare", input: "...", output: "..." }          (input → output on hover)
   //                { type: "compare", pairs: [{input,output}, ...] }         (several side by side)
+  //   Both publication lists use the same media. The five selected papers' preview.mp4
+  //   clips are from https://lightchaserx.github.io/.
   publications: [
     {
+      title: "Programmable World Model",
+      selected: true,
+      publicationDate: "2026-09-09",
+      authors: "Zheng-Hui Huang*, Guixu Lin*, Jiacheng Lin, Yi-Chuan Huang, Ruihan Yu, Muyao Niu, Siqi Yang, Yu-Lun Liu, Yung-Yu Chuang, Kaipeng Zhang, Zhixiang Wang",
+      venue: "arXiv",
+      year: 2026,
+      media: { type: "video", src: "paper/arxiv26_pwm/preview.mp4" },
+      links: [
+        { label: "Project", href: "https://alaya-lab.github.io/pwm/" },
+        { label: "arXiv", href: "https://arxiv.org/abs/2609.10540" },
+        { label: "Code", href: "https://github.com/AlayaLab/pwm", stars: true },
+        { label: "Video", href: "https://alaya-lab.github.io/pwm/videos/demo.mp4" },
+      ],
+    },
+    {
+      title: "PROWBench: Do Video Models Render What the Program Specifies?",
+      selected: true,
+      publicationDate: "2026-10-01",
+      authors: "Zheng-Hui Huang*, Guixu Lin*, Yu-Ju Tsai, Jian-Kai Zhu, Fengbo Lan, Yu-Lun Liu, Yung-Yu Chuang, Kaipeng Zhang, Zhixiang Wang",
+      venue: "arXiv",
+      year: 2026,
+      media: { type: "video", src: "paper/arxiv26_prowbench/preview.mp4" },
+      links: [
+        { label: "Project", href: "https://alaya-lab.github.io/PROWBench/" },
+        { label: "arXiv", href: "https://arxiv.org/abs/2610.02205" },
+        { label: "Code", href: "https://github.com/AlayaLab/PROWBench", stars: true },
+        { label: "Dataset", href: "https://huggingface.co/datasets/AlayaLab/PROWBench" },
+        { label: "Video", href: "https://alaya-lab.github.io/PROWBench/assets/demo/PROWBench_intro_720p.mp4" },
+      ],
+    },
+    {
+      title: "KaiNinja: Extending Native 3D Generators to the Part Level",
+      publicationDate: "2026-09-14",
+      authors: "Ruihan Yu, Lian Fu, Muyao Niu, Zheng-Hui Huang, Yu-Ju Tsai, Sho Kuno, Fengbo Lan, Yonghao Yu, Erwin Wu, Ming-Hsuan Yang, Kaipeng Zhang, Zhixiang Wang",
+      venue: "arXiv",
+      year: 2026,
+      media: { type: "video", src: "paper/arxiv26_kaininja/kaininja.mp4" },
+      links: [
+        { label: "Project", href: "https://alaya-lab.github.io/KaiNinja/" },
+        { label: "arXiv", href: "https://arxiv.org/abs/2609.15659" },
+        { label: "Code", href: "https://github.com/AlayaLab/KaiNinja", stars: true },
+        { label: "Video", href: "https://alaya-lab.github.io/KaiNinja/assets/videos/parttrellis-showcase.mp4" },
+      ],
+    },
+    {
+      title: "EditHero: A Benchmark for Long-Horizon Part-Level 3D Editing and Vibe Modeling",
+      publicationDate: "2026-10-01",
+      authors: "Ruihan Yu*, Yu-Ju Tsai*, Muyao Niu, Runyi Li, Lian Fu, Hanqing Liu, Zheng-Hui Huang, Yonghao Yu, Sho Kuno, Ming-Hsuan Yang, Kaipeng Zhang, Zhixiang Wang",
+      venue: "arXiv",
+      year: 2026,
+      media: { type: "video", src: "paper/arxiv26_edithero/edithero.mp4" },
+      links: [
+        { label: "Project", href: "https://alaya-lab.github.io/EditHero/" },
+        { label: "arXiv", href: "https://arxiv.org/abs/2610.02298" },
+        { label: "Code", href: "https://github.com/AlayaLab/EditHero", stars: true },
+        { label: "Dataset", href: "https://huggingface.co/datasets/AlayaLab/EditHero" },
+        { label: "Video", href: "https://alaya-lab.github.io/EditHero/assets/videos/edithero_mv.mp4" },
+      ],
+    },
+    {
+      title: "WorldSculpt: Generating Compositional Worlds from Grounded Videos",
+      publicationDate: "2026-09-04",
+      authors: "Muyao Niu, Jixuan He, Ruihan Yu, Lian Fu, Yonghao Yu, Zheng-Hui Huang, Yifan Zhan, Fengbo Lan, Yongtao Ge, Yinqiang Zheng, Kaipeng Zhang, Zhixiang Wang",
+      venue: "arXiv",
+      year: 2026,
+      media: { type: "video", src: "paper/arxiv26_worldsculpt/worldsculpt.mp4" },
+      links: [
+        { label: "Project", href: "https://alaya-lab.github.io/WorldSculpt/" },
+        { label: "arXiv", href: "https://arxiv.org/abs/2609.05416" },
+        { label: "Code", href: "https://github.com/AlayaLab/WorldSculpt", stars: true },
+        { label: "Models", href: "https://huggingface.co/AlayaLab/WorldSculpt" },
+        { label: "Dataset", href: "https://huggingface.co/datasets/AlayaLab/Worldsculpt_data" },
+        { label: "Video", href: "https://alaya-lab.github.io/WorldSculpt/assets/videos/demo_video.mp4" },
+      ],
+    },
+    {
       title: "Generative World Renderer",
+      selected: true,
+      publicationDate: "2026-04-02",
       authors: "Zheng-Hui Huang, Zhixiang Wang, Jiaming Tan, Ruihan Yu, Yidan Zhang, Bo Zheng, Yu-Lun Liu, Yung-Yu Chuang, Kaipeng Zhang",
       venue: "arXiv",
       year: 2026,
-      media: { type: "video", src: "paper/arxiv26_world_renderer/Huang2026GWR.mp4" },
+      media: { type: "video", src: "paper/arxiv26_world_renderer/preview.mp4" },
       links: [
         { label: "Project", href: "https://alaya-studio.github.io/renderer/" },
         { label: "arXiv", href: "https://arxiv.org/abs/2604.02329" },
@@ -69,10 +161,12 @@ const SITE = {
     },
     {
       title: "Generative World Renderer at the Speed of Play",
+      selected: true,
+      publicationDate: "2026-07-21",
       authors: "Guixu Lin, Zheng-Hui Huang, Siqi Yang, Ming-Hsuan Yang, Kaipeng Zhang, Zhixiang Wang",
       venue: "arXiv",
       year: 2026,
-      media: { type: "video", src: "paper/arxiv26_renderer_flash/Lin2026ARF.mp4" },
+      media: { type: "video", src: "paper/arxiv26_renderer_flash/preview.mp4", startTime: 1 },
       links: [
         { label: "Project", href: "https://alaya-renderer-flash.alayalab.ai/" },
         { label: "arXiv", href: "https://arxiv.org/abs/2607.18703" },
@@ -82,19 +176,22 @@ const SITE = {
     },
     {
       title: "Reflection Separation from a Single Image via Joint Latent Diffusion",
+      selected: true,
+      publicationDate: "2026-06-02", // https://arxiv.org/abs/2606.04107
       authors: "Zheng-Hui Huang, Zhixiang Wang, Yu-Lun Liu, Yung-Yu Chuang",
       venue: "CVPR",
       year: 2026,
-      media: { type: "compare", input: "paper/cvpr2026_reflection/input.png", output: "paper/cvpr2026_reflection/output.png" },
+      media: { type: "video", src: "paper/cvpr2026_reflection/preview.mp4" },
       links: [
         { label: "Project", href: "https://brian90709.github.io/diff-reflection-separation/" },
         { label: "Paper", href: "https://cvpr.thecvf.com/virtual/2026/poster/39860" },
-        { label: "Code", href: "https://github.com/Brian90709/diff-reflection-separation-code" },
+        { label: "Code", href: "https://github.com/Brian90709/diff-reflection-separation-code", stars: true },
         { label: "Models", href: "https://huggingface.co/Brian9999/diff-reflection-separation" },
       ],
     },
     {
       title: "SkyMatte: a High-Quality Dataset for Improving Sky Image Matting",
+      publicationDate: "2026-05", // Proceedings month listed on the project page.
       authors: "Cheng-Yen Tsai*, Zheng-Hui Huang*, Wei-Lien Tang, Hsiu-Ting Yang, Jo-Fan Wu, Yung-Yu Chuang",
       venue: "ICASSP",
       year: 2026,
@@ -106,6 +203,7 @@ const SITE = {
     },
     {
       title: "BRDFusion: Physics Meets Generation for Urban Scene Inverse Rendering",
+      publicationDate: "2026-06-15",
       authors: "Yi-Ruei Liu, Jie-Ying Lee, Zheng-Hui Huang, Yu-Lun Liu, Chih-Hao Lin",
       venue: "arXiv",
       year: 2026,
@@ -113,11 +211,12 @@ const SITE = {
       links: [
         { label: "Project", href: "https://shigon255.github.io/brdfusion-page/" },
         { label: "arXiv", href: "https://arxiv.org/abs/2606.17049" },
-        { label: "Code", href: "https://github.com/shigon255/BRDFusion" },
+        { label: "Code", href: "https://github.com/shigon255/BRDFusion", stars: true },
       ],
     },
     {
       title: "Semantic-Region Specific Lookup Tables for Image Enhancement via Unpaired Learning",
+      publicationDate: "2024-10-27", // NTU Scholars publication record.
       authors: "Zheng-Hui Huang, Tse-Yan Lee, Li-Jen Chang, Yong-Wei Chen, Ping-Jui Chiang, Jo-Fan Wu, Yung-Yu Chuang",
       venue: "ICIP",
       year: 2024,
