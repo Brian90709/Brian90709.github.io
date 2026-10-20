@@ -85,13 +85,14 @@ const SITE = {
     },
     {
       title: "InfiniDream: Open-Ended Photorealistic 3D Worlds through Procedural Generation",
-      publicationDate: "2026-10-09", // First project-page publication; formal paper date not announced.
+      publicationDate: "2026-10-19",
       authors: "Yi-Chuan Huang, Hao-Jen Chien, Zheng-Hui Huang, Yu-Lun Liu, Kaipeng Zhang, Zhixiang Wang",
       venue: "arXiv",
       year: 2026,
       media: { type: "video", src: "paper/project26_infinidream/preview.mp4", startTime: 2 },
       links: [
         { label: "Project", href: "https://yichuanh.github.io/infinidream-page/" },
+        { label: "arXiv", href: "https://arxiv.org/abs/2610.26853" },
         { label: "Code", href: "https://github.com/yichuanH/InfiniDream", stars: true },
         { label: "Video", href: "https://yichuanh.github.io/infinidream-page/videos/demo_full.mp4" },
       ],
