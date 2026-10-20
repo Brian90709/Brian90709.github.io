@@ -43,11 +43,14 @@ const SITE = {
     "Yifan Zhan": "https://yifever20002.github.io/",
     "Yongtao Ge": "https://yongtao.me/",
     "Yinqiang Zheng": "https://scholar.google.com/citations?user=JD-5DKcAAAAJ",
+    "Chuanhao Li": "https://nevermorelch.github.io/",
+    "Hao-Jen Chien": "https://chien90190.github.io/",
   },
 
   /* ------------------------- Publications -------------------------------- */
   // All Publications is sorted by publicationDate; source order controls Selected Publications.
   // Dates use the first arXiv submission where available, otherwise the proceedings date.
+  // Projects without a published paper use their project page's first publication date.
   // Fields:
   //   title    — paper title
   //   selected — include in Selected Publications, in the same order as this array
@@ -67,6 +70,32 @@ const SITE = {
   //   Both publication lists use the same media. The five selected papers' preview.mp4
   //   clips are from https://lightchaserx.github.io/.
   publications: [
+    {
+      title: "AlayaCrafter: An Agent-First 3D Stack for Programmable Worlds",
+      publicationDate: "2026-10-12", // First project-page publication; formal paper date not announced.
+      authors: "Yonghao Yu, Ruihan Yu, Sho Kuno, Muyao Niu, Yu-Ju Tsai, Zheng-Hui Huang, Fengbo Lan, Guixu Lin, Runyi Li, Chuanhao Li, Ming-Hsuan Yang, Kaipeng Zhang, Zhixiang Wang",
+      venue: "Project",
+      year: 2026,
+      media: { type: "video", src: "paper/project26_alayacrafter/preview.mp4" },
+      links: [
+        { label: "Project", href: "https://alaya-lab.github.io/AlayaCrafter/" },
+        { label: "Assets", href: "https://alaya-lab.github.io/AlayaCrafter/space-kit.html" },
+        // The announced code repository is not public yet.
+      ],
+    },
+    {
+      title: "InfiniDream: Open-Ended Photorealistic 3D Worlds through Procedural Generation",
+      publicationDate: "2026-10-09", // First project-page publication; formal paper date not announced.
+      authors: "Yi-Chuan Huang, Hao-Jen Chien, Zheng-Hui Huang, Yu-Lun Liu, Kaipeng Zhang, Zhixiang Wang",
+      venue: "Project",
+      year: 2026,
+      media: { type: "video", src: "paper/project26_infinidream/preview.mp4", startTime: 2 },
+      links: [
+        { label: "Project", href: "https://yichuanh.github.io/infinidream-page/" },
+        { label: "Code", href: "https://github.com/yichuanH/InfiniDream", stars: true },
+        { label: "Video", href: "https://yichuanh.github.io/infinidream-page/videos/demo_full.mp4" },
+      ],
+    },
     {
       title: "Programmable World Model",
       selected: true,

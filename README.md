@@ -50,6 +50,9 @@ hour. Update the snapshot and run the build when refreshing the static fallback.
 or `YYYY-MM` when only the month is known), independently of the selected order.
 Use the first arXiv submission date when available, otherwise the proceedings
 publication date. Entries with the same date retain their source order.
+For a project whose paper has not been published, use the first project-page
+publication date and label its venue `Project` until formal publication details
+are available.
 
 To change the header links (Email, GitHub, LinkedIn) or the intro, edit `index.html` directly.
 
