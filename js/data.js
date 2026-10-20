@@ -74,7 +74,7 @@ const SITE = {
       title: "AlayaCrafter: An Agent-First 3D Stack for Programmable Worlds",
       publicationDate: "2026-10-12", // First project-page publication; formal paper date not announced.
       authors: "Yonghao Yu, Ruihan Yu, Sho Kuno, Muyao Niu, Yu-Ju Tsai, Zheng-Hui Huang, Fengbo Lan, Guixu Lin, Runyi Li, Chuanhao Li, Ming-Hsuan Yang, Kaipeng Zhang, Zhixiang Wang",
-      venue: "Project",
+      venue: "arXiv",
       year: 2026,
       media: { type: "video", src: "paper/project26_alayacrafter/preview.mp4" },
       links: [
@@ -87,7 +87,7 @@ const SITE = {
       title: "InfiniDream: Open-Ended Photorealistic 3D Worlds through Procedural Generation",
       publicationDate: "2026-10-09", // First project-page publication; formal paper date not announced.
       authors: "Yi-Chuan Huang, Hao-Jen Chien, Zheng-Hui Huang, Yu-Lun Liu, Kaipeng Zhang, Zhixiang Wang",
-      venue: "Project",
+      venue: "arXiv",
       year: 2026,
       media: { type: "video", src: "paper/project26_infinidream/preview.mp4", startTime: 2 },
       links: [
